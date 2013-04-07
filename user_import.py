@@ -26,7 +26,7 @@ def add_ipa_users(user_info):
     count=0
     for i in user_info:
         count +=1
-        cmd="ipa user-add %s --first=%s --last=%s --uid=%s --setattr userPassword={crypt}%s" % (i[0],i[1],i[2],i[3],i[4])
+        cmd="ipa user-add %s --first=%s --last=%s --uid=%s --setattr userPassword=%s" % (i[0],i[1],i[2],i[3],i[4])
         print cmd
         if count == 5:
           break
