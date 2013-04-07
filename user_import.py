@@ -1,6 +1,6 @@
 #!/usr/bin/python -tt
 # This is a Free and Open Source Software
-# Copyright chandank@live.ca
+# Copyright chandank.kumar@gmail.com
 
 import sys
 import os
@@ -39,4 +39,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
