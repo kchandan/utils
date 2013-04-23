@@ -1,4 +1,4 @@
-ipautils
+utils
 ========
 
 Small utilities for FreeIPA.
