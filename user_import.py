@@ -1,5 +1,5 @@
 #!/usr/bin/python -tt
-# This is a Free and Open Source Software
+# Import users from Shadow and passwd files to IPA
 
 import sys
 import os
@@ -54,4 +54,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
