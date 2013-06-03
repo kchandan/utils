@@ -12,3 +12,9 @@ Keep the passwd and shadow file in the same directory that of user_import.py and
 execute it ./user_import.py
 
 If you want something missing/bug please feel free to log an issue or send patch request.
+
+
+sync_vm.sh
+
+This script could be used to nightly synchronize the virtual machine images (KVM/qemu) with Virsh front end across multiple Physical boxes
+It won't be highly available, however, it will provide a automated backup. Simple rsync script with some error handling.
