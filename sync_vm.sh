@@ -14,7 +14,7 @@ dest_ip="<%= @profile_destip %>"
 hop_ip="<%= @profile_hopip %>"
 user="<%= @profile_user %>"
 dest_path="<%= @profile_destpath %>"
-email_id="chandank@med-access.net"
+email_id="chandank@live.ca"
 remote_check="<%= @profile_remotecheck %>"
 enabled="<%= @profile_enabled %>"
 
