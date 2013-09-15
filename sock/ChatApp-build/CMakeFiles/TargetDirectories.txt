@@ -1,0 +1,1 @@
+/home/internet/utils/sock/ChatApp-build/CMakeFiles/ChatApp.dir
