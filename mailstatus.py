@@ -4,19 +4,24 @@ import smtplib
 # Import the email modules we'll need
 from email.mime.text import MIMEText
 
-SERVER = '192.168.2.66'
+SSHSERVER = '192.168.2.66'
 USER = 'chandank'
 PASSWORD = 'chandan'
+TEXTFILE='statusfile'
+MAILSERVER='127.0.0.1'
+MAILTO='xxx@gmail.com'
+MAILFROM='xxx@yourhostname.com'
 
 class MYSSHClient():
 
-    def __init__(self, server=SERVER, username=USER, password=PASSWORD):
+    def __init__(self, server=SSHSERVER, username=USER, password=PASSWORD):
         self.server = server
         self.username = username
         self.password = password
         self.connection = None
         self.result =  ''
         self.is_error = False
+        self.textfile=TEXTFILE
 
 
     def do_connect(self):
@@ -38,10 +43,10 @@ class MYSSHClient():
                 self.is_error = False
                 self.result = str(stdout.read())
                 print 'no error'
-
-            print self.result
-
-
+                
+            fp = open(self.textfile, 'w')
+            fp.write(self.result)
+            fp.close()
         else:
             print "no command was entered"
 
