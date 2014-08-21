@@ -27,3 +27,8 @@ check_ldap_replication
 ----------------------
 
 Is the nagios monitoring script to monigor replication status in FreeIPA. Before you could use this script you should have a user, I have used nagios user, and then give it ACL to read replication parameters in the directory server. By default only directory manager could read those values. So before you go ahead with production setup make a new user is created with read only access to config.
+
+send_status
+--------------
+
+This script will loging to X number of remove servers, execute some status commands such as df -h etc, and email the results to an email ID. This script would be very handy if you do not have a system like Nagios.
