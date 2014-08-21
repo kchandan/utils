@@ -4,17 +4,18 @@ import smtplib
 # Import the email modules we'll need
 from email.mime.text import MIMEText
 
-SSHSERVER = '192.168.2.66'
-USER = 'chandank'
-PASSWORD = 'chandan'
+const_ssh_servers = 'sshhost'
+USER = 'username'
+PASSWORD = 'password'
 TEXTFILE='statusfile'
 MAILSERVER='127.0.0.1'
-MAILTO='xxx@gmail.com'
-MAILFROM='xxx@yourhostname.com'
+MAILTO='targetmail'
+MAILFROM='youremail'
+DISK_USAGE_LIMIT=10
 
 class MYSSHClient():
 
-    def __init__(self, server=SSHSERVER, username=USER, password=PASSWORD):
+    def __init__(self, server=const_ssh_servers, username=USER, password=PASSWORD):
         self.server = server
         self.username = username
         self.password = password
@@ -29,6 +30,7 @@ class MYSSHClient():
         self.connection.set_missing_host_key_policy(paramiko.AutoAddPolicy())
         self.connection.connect(self.server, username=self.username, password=self.password)
 
+
     def execute_command(self, command):
         if command:
             print command            
@@ -42,11 +44,8 @@ class MYSSHClient():
             else:
                 self.is_error = False
                 self.result = str(stdout.read())
-                print 'no error'
-                
-            fp = open(self.textfile, 'w')
-            fp.write(self.result)
-            fp.close()
+                return self.result
+            
         else:
             print "no command was entered"
 
@@ -55,30 +54,57 @@ class MYSSHClient():
 
 class Myemail():
 
-    def __init__(self,server=MAILSERVER,mailto=MAILTO,mailfrom=MAILFROM,texfile=TEXTFILE):
+    def __init__(self,server=MAILSERVER,mailto=MAILTO,mailfrom=MAILFROM,textfile=TEXTFILE):
         self.server=server
         self.mailto=mailto
         self.mailfrom=mailfrom
-        self.texfile=textfile
+        self.textfile=textfile
 
     def send_mail(self):
         
         fp = open(self.textfile, 'rb')
         msg = MIMEText(fp.read())
         fp.close()
-        msg['Subject'] ='The contents of %s' % self.textfile
+        msg['Subject'] ='Disk usage report'
         msg['From'] = self.mailfrom
         msg['To'] = self.mailto
         s = smtplib.SMTP('127.0.0.1')
-        s.sendmail(me, [you], msg.as_string())
+        s.sendmail(self.mailfrom, [mail.mailto], msg.as_string())
         s.quit()
     
-        
+class FormatOutput():
+    
+    def __init__(self,result):
+        self.result=result;
+        self.disk_usage=DISK_USAGE_LIMIT
+        self.textfile=TEXTFILE
+
+    def format_df_h(self):
+        fp = open(self.textfile, 'w')
+
+        for line in self.result.split('\n'):
+            if not line:
+                continue
+            usage=line.split()[4][:-1]
+            disk=line.split()[0]
+            if (disk != 'Filesystem') and (usage > self.disk_usage):
+                fp.write(line.split()[0] + '\thas usage ' + usage + '%\n')
+                #print line.split()[0] + '\thas usage ' + usage + '%\n'
+
+        fp.close()
+            
+                
+              
+
 
 
 if __name__ == '__main__':
     client = MYSSHClient()
     client.do_connect()
     command = 'df -h'
-    client.execute_command(command)
+    result=client.execute_command(command)
     client.do_close()
+    output = FormatOutput(result)
+    output.format_df_h()
+    mail = Myemail()
+    mail.send_mail()
