@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#
+# Puppet ready script
 # This script will do
 # 1. Suspend Local [remote] VM
 # 2. Rsync the Image to local dir
