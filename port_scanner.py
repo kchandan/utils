@@ -49,7 +49,7 @@ class scanner:
 
 if __name__ == '__main__':
 
-    s = scanner(ipv4='10.10.15.181',ipv6='fe80::226:b9ff:fe8a:77eb')
+    s = scanner(ipv4='',ipv6='')
     # s.tcp_ipv4(5554,5559)
     # s.tcp_ipv6(21,30)
     s.udp_ipv4(5554,5556)
