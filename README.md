@@ -33,4 +33,7 @@ send_status
 
 This script will loging to X number of remove servers, execute some status commands such as df -h etc, and email the results to an email ID. This script would be very handy if you do not have a system like Nagios.
 
-Test
+rest-flask
+-------------
+
+Rest API service example using Python Flask microframework to return country code based on country name.
